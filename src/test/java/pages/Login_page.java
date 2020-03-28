@@ -4,20 +4,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import libary.utility;
+import libary.Utility;
 
-public class login {
+
+public class Login_page {
 	WebDriver d;
-	public login(WebDriver d)
+	public Login_page(WebDriver d)
 	{
 		this.d=d;
 	}
-	utility u=new utility();
+	Utility u=new Utility();
 	By admin=By.xpath("//a[@href='Administration.php']");
 	By user=By.xpath("//input[@name='login']");
 	By pass=By.xpath("//input[@name='password']");
 	By login=By.xpath("//input[@name='DoLogin']");
 	By task_btn=By.xpath("//a[@href='Default.php']");
+	By logout=By.xpath("//a[@href='Login.php?Logout=True']");
 	public void ck_ad() {
 		WebElement we=u.elementclick(d,admin, 20);
 		we.click();
@@ -38,12 +40,16 @@ public class login {
 		WebElement we=u.elementclick(d,task_btn, 20);
 		we.click();
 	}
-	public void do_login()
+	public String get_log() {
+		WebElement we=u.elementclick(d,logout, 20);
+	   return we.getText();
+	}
+	public void do_login(String user,String password)
 	{
 		this.ck_ad();
-		u.get_data();
-		this.se_lo("admin");
-		this.se_ps("admin");
+		
+		this.se_lo(user);
+		this.se_ps(password);
 		this.ck_bt();
 	}
 	
