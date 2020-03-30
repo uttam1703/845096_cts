@@ -83,17 +83,17 @@ public class Add_Task_Page {
 		WebElement we=u.elementclick(d,add_btn, 20);
 		we.click();
 	}
-	public void do_task(String t,String d,String pro,String pri,String stu,String typ,String assi,String start,String from) {
+	public void do_task(String task,String pro,String pri,String stu,String typ,String assi) {
 		this.ck_add();
-		this.se_tas(t);
-		this.se_de(d);
+		this.se_tas(task);
+//		this.se_de(d);
 		this.sec_pro(pro);
 		this.sec_pri(pri);
 		this.sec_stu(stu);
 		this.sec_typ(typ);
 		this.sec_ass(assi);
-		this.se_start(start);
-		this.se_finish(from);
+//		this.se_start(start);
+//		this.se_finish(from);
 		this.ck_add_b();
 	}
 }

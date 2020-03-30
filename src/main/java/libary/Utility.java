@@ -20,7 +20,7 @@ import excel.Read_excel;
 
 
 public class Utility extends Read_excel {
-	protected WebDriver d;
+	protected WebDriver dr;
 //	public utility(WebDriver d)
 //	{
 //		this.d=d;
@@ -31,7 +31,7 @@ public class Utility extends Read_excel {
 	public void ScreenShot()
 	{
 		
-		File f1=((TakesScreenshot)d).getScreenshotAs(OutputType.FILE);
+		File f1=((TakesScreenshot)dr).getScreenshotAs(OutputType.FILE);
 	    File f2=new File("src\\test\\resources\\SCREENSHOT\\"+System.currentTimeMillis()+".png");
 	try {
 		FileUtils.copyFile(f1, f2);
@@ -47,24 +47,24 @@ public class Utility extends Read_excel {
 		
 		if(br.contains("CHROME") ) {
 			System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\DRIVER\\chromedriver_v79.exe");
-			 d=new ChromeDriver();
+			 dr=new ChromeDriver();
 		}
 			 else  if(br.contains("FIREFOX") ) {
 			System.setProperty("webdriver.gecko.driver","src\\test\\resources\\DRIVER\\geckodriver.exe");
-			 d= new FirefoxDriver();
+			 dr= new FirefoxDriver();
 			 }
 			 
 				 
 		
-		d.get(url);
-		 d.manage().window().maximize();
-		d.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		return d;
+		dr.get(url);
+		 dr.manage().window().maximize();
+		dr.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		return dr;
 			
 	}
-	public WebElement waitForElement(WebDriver d,By loc,int timeout) {
+	public WebElement waitForElement(WebDriver dr,By loc,int timeout) {
 		try{
-			WebDriverWait wait =new WebDriverWait(d,timeout);
+			WebDriverWait wait =new WebDriverWait(dr,timeout);
 		     WebElement element =wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
 		     System.out.println("fo");
 		     return element;
@@ -74,9 +74,9 @@ public class Utility extends Read_excel {
 		return null;
 	}
 	
-	public WebElement elementclick(WebDriver d,By loc,int timeout) {
+	public WebElement elementclick(WebDriver dr,By loc,int timeout) {
 		try {
-		WebDriverWait wait=new WebDriverWait(d,timeout);
+		WebDriverWait wait=new WebDriverWait(dr,timeout);
 		 WebElement element =wait.until(ExpectedConditions.elementToBeClickable(loc));
 		 System.out.println("fo");
 

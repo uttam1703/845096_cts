@@ -44,12 +44,12 @@ public class Login_page {
 		WebElement we=u.elementclick(d,logout, 20);
 	   return we.getText();
 	}
-	public void do_login(String user,String password)
+	public void do_login()
 	{
 		this.ck_ad();
 		
-		this.se_lo(user);
-		this.se_ps(password);
+		this.se_lo("admin");
+		this.se_ps("admin");
 		this.ck_bt();
 	}
 	

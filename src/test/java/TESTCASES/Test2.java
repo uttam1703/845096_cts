@@ -12,29 +12,33 @@ import org.testng.annotations.DataProvider;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 
-public class Test2 extends Utility{
+public class Test2 extends Utility {
 	Add_Task_Page ad;
 	Login_page l;
 	Search_page s;
 	int num=2;
 	 @BeforeMethod
 	  public void lanuchBrowser() {
-		  d=launchBroser("FIREFOX", "http://examples.codecharge.com/TaskManager/Default.php");//Launch of Browser with Chrome
+		  dr=launchBroser("CHROME", "http://examples.codecharge.com/TaskManager/Default.php");//Launch of Browser with Chrome
 	  }
 	
-	@Test(dataProvider="login",priority=0)
-	public void login_test(String userName,String password)
+	@Test(dataProvider="add_task",priority=0)
+	public void login_test(String task_name,String project,String priority,String status,String type,String assign_to)
 	{
-		l=new Login_page(d);
-		  l.do_login(userName,password);//Login with Valid data
-		  String result=l.get_log();//Get result of login
-		  Assert.assertTrue(result.contains("Logout"));//compare result
+		l=new Login_page(dr);
+		  l.do_login();//Login with Valid data
+		  ad=new Add_Task_Page(dr);
+		  ad.do_task(task_name,project,priority,status,type,assign_to );//add task in system
+		  s=new Search_page(dr);
+		  s.do_serch(project,priority,status,type,assign_to);//search for task
+		  String result=s.project_result();//get task name
+		 Assert.assertTrue(result.contains(task_name));//compare result
 		  
 
 	}
 	@DataProvider
-	  public String[][] login() {
-		  get_data("login",1,2);//Get data from login excel
+	  public String[][] add_task() {
+		  get_data("add_task",1,6);//Get data from login excel
 		 return data;
 	   
 	  }
@@ -42,7 +46,7 @@ public class Test2 extends Utility{
 	public void serch_test_project(String task_name,String project,String priority,String status,String type,String assign_to)
 	{
 		
-		  s=new Search_page(d);
+		  s=new Search_page(dr);
 		  s.do_serch(project,priority,status,type,assign_to);//search for project
 		  ScreenShot();//take screen shot
 		  String serch_result=s.project_result();//get project name
@@ -59,7 +63,7 @@ public class Test2 extends Utility{
 	@Test(dataProvider = "serch_parameter",priority=1)
   public void search_test_parameter(String project,String priority,String status,String type,String assign_to,String extpected_result) {
 	  	  
-	   s=new Search_page(d);
+	   s=new Search_page(dr);
 	  s.do_serch(project,priority,status,type,assign_to);//search for each parameter
 	  ScreenShot();//take screen shot
 	  String actual_result= s.table_result(num);//get result
@@ -76,11 +80,12 @@ public class Test2 extends Utility{
 
   @AfterMethod
   public void closeBrowser() {
-	  d.close();//close Browser
+	  dr.close();//close Browser
 	  
 	  
 	  
   }
+
 
 
 
